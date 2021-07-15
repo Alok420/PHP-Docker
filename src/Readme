@@ -1,0 +1,157 @@
+========== Documentation ================
+
+1. function selectQuery($sql, $params = null, $types = null){}
+
+    for select or fetch data call this function.
+    It will take 3 parameters
+    1. $sql(required) = Sql query for fetch data 
+        examples -
+        SELECT * FROM tbname
+        OR 
+        SELECT * FROM tbname WHERE col1 = ? AND col2 = ?....
+
+        Now you have to pass the values of (?)
+    2. $params(optional if there is not any where condition but required if there is where condition) = Values of (?). 
+        examples - 
+        $params = array("value of col1", "value of col2"....)
+        OR 
+        if you appled only 1 condition then you can pass like this
+        $params = value of col OR array(value of col)
+        eg. if col_name = id and the value of id = 7 then
+        $params = 7 OR array(7)    //{Both are accepted}
+
+        Note.{
+            remember order should be same as passed in $sql
+            if
+            $sql = "SELECT * FROM tbname WHERE id = ? AND name LIKE ? "
+            $params = array(1,'abc')
+            but if
+            $sql = "SELECT * FROM tbname WHERE name LIKE ? AND id = ? "
+            $params = array('abc',1)
+        }
+
+    3. $types(optional) = data types of your column values.
+        examples - 
+        if you have two colums - 
+        id(int)
+        name(string)
+        then pass - 
+        $types = "is"     //{i=>int, s=>string}
+
+        Note.{
+            remember order should be same as passed in params
+            if 
+            $params = array("1", "abc")
+            $types = "is"
+            but if
+            $params = array("abc", "1")
+            $types = "si"
+        }
+
+2. function insertQuery($data, $tbname, $types = null, $recentid = "yes"){}
+    
+    For insert data call this function.
+    It will take 4 parameters
+    1. $data(required) = array of the data that you want to insert
+        examples - 
+        if want to insert 3 data (Name, Age, Contact) then
+        $data = array("name"=>"abc", "age"=>"20", "contact"=>"1234567890")
+
+        Note.{
+            Remember the key name in $data array should be same as column name in database
+            if
+            $data = array("name"=>"abc", "age"=>"20", "contact"=>"1234567890")
+            then column name in table should be 
+            name
+            age
+            contact
+        }
+    2. $tbname(required) = Table name in which you want to insert data
+        examples - 
+        $tbname = "user" => same as table name in database
+    3. $types(optional) = Not required in this case
+    4. $recentid(optional) = Not required in this case
+
+3. public function updateQuery($data, $tbname, $id, $column = "id", $types = null){}
+
+    For update data call this function.
+    it will take 4 parameters
+    1. $data(required) = array of the data that you want to update
+        examples - 
+        if want to update 3 data (Name, Age, Contact) then
+        $data = array("name"=>"abc", "age"=>"20", "contact"=>"1234567890")
+
+        Note.{
+            Remember the key name in $data array should be same as column name in database
+            if
+            $data = array("name"=>"abc", "age"=>"20", "contact"=>"1234567890")
+            then column name in table should be 
+            name
+            age
+            contact
+        }
+    2. $tbname(required) = Table name in which you want to insert data
+        examples - 
+        $tbname = "user" => same as table name in database
+    3. $id(required) = value of id(primary_key) of the row that you want to update
+        example - 
+        $id = 6 OR 5 OR 12.....
+    4. $column(optional if you want to update by id but if you want to update by specific column then its required)
+        example - 
+        $column = "user_id" OR "email" OR "contact"..........
+    5. $types(optional) = Not required in this case
+
+4. public function deleteQuery($sql, $params = null, $types = null){}
+
+    For delete record call this function.
+    it will take 3 parameters
+    1. $sql(required) = Sql query for delete data 
+    examples -
+        DELETE FROM tbname
+        OR 
+        DELETE FROM tbname WHERE col1 = ? AND col2 = ?....
+
+        Now you have to pass the values of (?)
+    2. $params(required) = Values of (?). 
+        examples - 
+        $params = array("value of col1", "value of col2"....)
+        OR 
+        if you appled only 1 condition then you can pass like this
+        $params = value of col OR array(value of col)
+        eg. if col_name = id and the value of id = 7 then
+        $params = 7 OR array(7)    //{Both are accepted}
+
+        Note.{
+            remember order should be same as passed in $sql
+            if
+            $sql = "SELECT * FROM tbname WHERE id = ? AND name LIKE ? "
+            $params = array(1,'abc')
+            but if
+            $sql = "SELECT * FROM tbname WHERE name LIKE ? AND id = ? "
+            $params = array('abc',1)
+        }
+    
+    3. $types(optional) = data types of your column values.
+        examples - 
+        if you have two colums - 
+        id(int)
+        name(string)
+        then pass - 
+        $types = "is"     //{i=>int, s=>string}
+
+        Note.{
+            remember order should be same as passed in params
+            if 
+            $params = array("1", "abc")
+            $types = "is"
+            but if
+            $params = array("abc", "1")
+            $types = "si"
+        }
+        
+For delete anydata redirect on controller/delete.php
+Syntax for passing arguments in this controller
+1. where = array("condition"=>"value")
+2. tbname
+3. loginid
+4.file_column with comma(,) seperated like image,pdf,adhar.....

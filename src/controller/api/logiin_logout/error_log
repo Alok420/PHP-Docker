@@ -1,0 +1,1 @@
+[03-Sep-2020 11:23:37 UTC] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO) in /home/justpkpj/public_html/bitsinfotec.com/AutoDoctor/Config/Connection.php on line 25

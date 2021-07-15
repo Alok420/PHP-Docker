@@ -1,0 +1,4 @@
+DATABASE_CONFIGURED=1
+dbname=wamaship
+user_name=root
+password=example
