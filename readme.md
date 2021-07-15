@@ -6,17 +6,30 @@
 - ## docker-compose file
 - ## Ubantu OS on docker 
 - ## images (php 7.4,mysql,adminer,docker-php-ext-install mysqli)
-- ## DBTool for very basic database operation and migration available on github
+- ## DBTool for very basic database operation and migration available on github <https://github.com/Alok420/DBTool>
 ## Setup required
 - ## database named as wamaship and host is "db"
 - ## default username "root" and password "example"
 - ## Need Docker-compose file
 # 1. How to run the application with docker
 
-# 2. How to run the application without docker
-- ## Clone the project stored in github public repository
-<sdjjk>
-
+# 2. How to run the application without docker 
+## A. For windows
+- ## Clone the project stored in github public repository <https://github.com/Alok420/PHP-Docker> <https://github.com/Alok420/PHP-Docker.git>
+- ## Need server to setup 
+- ## you can install Xampp which will configure the environment and run mysql and apache
+- ## Open your browser and hit (localhost/phpmyadmin)
+- ## create a database in phpmyadmin or direct in mysql cmd
+- ## Now paste the cloned project into htdocks
+- ## Now Configure the project
+- ## Open connection.php locates in Config folder of your project and change username, password,host,database name here if required
+- ## Migrate the table by hitting on the link <http://localhost/src/Config/Migrate.php>
+- ## Create the relation by hitting on <http://localhost/src/Config/Migrate.php?type=relation>
+- ## You are all done now
+- ## Hit the URL <http://localhost/src>
+- ## Now register from rgistration page 
+- ## change value of role column of user table in mysql database using phpmyadmin or by hitting sql query to become normel user to admin
+- ## by default it will be user you can change it as 'admin' for admin role
 # 3. Some usefull docker commands or visit <https://docs.docker.com/engine/reference/run/>
 ## Docker Commands
 ### Create a Dockerfile in your PHP project or <https://hub.docker.com/_/php>
