@@ -12,7 +12,19 @@
 - ## default username "root" and password "example"
 - ## Need Docker-compose file
 # 1. How to run the application with docker
-
+- ## create docker engine environment by installing it <https://docs.docker.com/engine/install/>
+- ## Clone the project stored in github public repository <https://github.com/Alok420/PHP-Docker> <https://github.com/Alok420/PHP-Docker.git>
+- ## now open terminal in current directory
+- ## run the command
+- > docker-compose up -d
+- ## Open connection.php locates in Config folder of your project and change username, password,host,database name here if required (optional) by default it's all set
+- ## Migrate the table by hitting on the link <http://localhost/src/Config/Migrate.php>
+- ## Create the relation by hitting on <http://localhost/src/Config/Migrate.php?type=relation>
+- ## You are all done now
+- ## Hit the URL <http://localhost/src>
+- ## Now register from rgistration page 
+- ## change value of role column of user table in mysql database using phpmyadmin or by hitting sql query to become normel user to admin
+- ## by default it will be user you can change it as 'admin' for admin role
 # 2. How to run the application without docker 
 ## A. For windows
 - ## Clone the project stored in github public repository <https://github.com/Alok420/PHP-Docker> <https://github.com/Alok420/PHP-Docker.git>
