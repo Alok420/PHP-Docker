@@ -3,6 +3,7 @@ $curr_date = date("Y-m-d");
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
+
 <head>
     <?php include './common/head.php'; ?>
     <?php include '../Config/common_script.php'; ?>
@@ -41,61 +42,83 @@ $curr_date = date("Y-m-d");
             <!-- Mobile Menu end -->
 
         </div>
+        <form method="GET" action="index.php" style="margin: 10px;">
+            <div class="row">
+                <div class="col-sm-10">
+                    <input name="search" type="search" class="form-control">
+                </div>
+                <div class="col-sm-2">
+                    <button class="btn btn-default" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
         <div class="section-admin container-fluid" style="margin-top: 80px;">
             <div class="row admin">
                 <div class="col-md-12">
+
                     <div class="row">
                         <?php
-                        $books = $db->select("books");
-                        while ($book = $books->fetch_assoc()) {
+                        if (isset($_GET["search"])) {
+                            $search = $_GET["search"];
+                            $books = $conn->query("select * from books where name like '%" . $search . "%' ");
+                        } else {
+                            $books = $db->select("books");
+                        }
+                        if ($books->num_rows > 0) {
+
+
+                            while ($book = $books->fetch_assoc()) {
                         ?>
-                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center">
-                                <div class="admin-content analysis-progrebar-ctn res-mg-t-15" style="margin-top:">
-                                    <img src="../img/books/<?php echo $book['image'] ?>" style="height:100px;">
-                                    <h5 align="center"><?php echo "Name:" . $book['name']; ?> <?php echo "Qty:" . $book['quantity'] . " pcs"; ?></h5>
-                                    <div class="row vertical-center-box vertical-center-box-tablet">
+                                <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12 text-center">
+                                    <div class="admin-content analysis-progrebar-ctn res-mg-t-15" style="margin-top:">
+                                        <img src="../img/books/<?php echo $book['image'] ?>" style="height:100px;">
+                                        <h5 align="center"><?php echo "Name:" . $book['name']; ?> <?php echo "Qty:" . $book['quantity'] . " pcs"; ?></h5>
+                                        <div class="row vertical-center-box vertical-center-box-tablet">
 
-                                        <div class="col-xs-9 cus-gh-hd-pro" style="text-align: left;margin-top: 10px;">
+                                            <div class="col-xs-9 cus-gh-hd-pro" style="text-align: left;margin-top: 10px;">
 
-                                            <?php
-                                            $is_borrowed = $db->select('borrow_book', 'id', array('user_id' => $user['id'], 'operatoroc' => 'and', 'book_id' => $book['id']));
-                                            if ($is_borrowed->num_rows > 0) {
-                                            ?>
-                                                <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?php echo $book['id']; ?>">Read</button>
-                                            <?php
-                                            } else {
-                                            ?>
-                                                <a href="../controller/borrow_book.php?id=<?php echo $book['id']; ?>&type=book" class="btn btn-primary">Borrow</a>
-                                            <?php
-                                            }
-                                            ?>
+                                                <?php
+                                                $is_borrowed = $db->select('borrow_book', 'id', array('user_id' => $user['id'], 'operatoroc' => 'and', 'book_id' => $book['id']));
+                                                if ($is_borrowed->num_rows > 0) {
+                                                ?>
+                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal<?php echo $book['id']; ?>">Read</button>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <a href="../controller/borrow_book.php?id=<?php echo $book['id']; ?>&type=book" class="btn btn-primary">Borrow</a>
+                                                <?php
+                                                }
+                                                ?>
+                                            </div>
                                         </div>
+
                                     </div>
-
                                 </div>
-                            </div>
-                            <!-- Modal -->
-                            <div class="modal fade" id="myModal<?php echo $book['id']; ?>" role="dialog">
-                                <div class="modal-dialog">
+                                <!-- Modal -->
+                                <div class="modal fade" id="myModal<?php echo $book['id']; ?>" role="dialog">
+                                    <div class="modal-dialog">
 
-                                    <!-- Modal content-->
-                                    <div class="modal-content">
-                                        <div class="modal-header text-center">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                            <div class="modal-header text-center">
 
-                                            <h4 class="modal-title"><?php echo $book['name']; ?></h4>
-                                            <p align="center"> (<?php echo $book['author']; ?>)</p>
+                                                <h4 class="modal-title"><?php echo $book['name']; ?></h4>
+                                                <p align="center"> (<?php echo $book['author']; ?>)</p>
+                                            </div>
+                                            <div class="modal-body" style="overflow-x: auto;">
+                                                <p><?php echo $book['description'] ?>.</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
-                                        <div class="modal-body" style="overflow-x: auto;">
-                                            <p><?php echo $book['description'] ?>.</p>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                        </div>
+
                                     </div>
-
                                 </div>
-                            </div>
                         <?php
+                            }
+                        } else {
+                            echo "<h3 style='text-align:center;'>Record not found</h3>";
                         }
                         ?>
 
